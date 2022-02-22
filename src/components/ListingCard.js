@@ -8,6 +8,18 @@ function ListingCard({id, deleteFromItemsArray, location, image, description}) {
     setToggleLike(toggleLike => !toggleLike)
   }
 
+  function handleDelete() {
+    deleteFromItemsArray(id) 
+
+    deleteFromDatabase()
+  }
+
+  function deleteFromDatabase() {
+    fetch(`http://localhost:6001/listings/${id}`, {
+      method: "DELETE"
+    })
+  }
+
   return (
     <li className="card">
       <div className="image">
@@ -22,7 +34,7 @@ function ListingCard({id, deleteFromItemsArray, location, image, description}) {
         )}
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button onClick={() => {deleteFromItemsArray(id)}} className="emoji-button delete">🗑</button>
+        <button onClick={handleDelete} className="emoji-button delete">🗑</button>
       </div>
     </li>
   );
